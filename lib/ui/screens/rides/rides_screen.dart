@@ -16,6 +16,7 @@ import 'widgets/rides_tile.dart';
 ///  The Ride Selection screen allow user to select a ride, once ride preferences have been defined.
 ///  The screen also allow user to re-define the ride preferences and to activate some filters.
 ///
+// ignore: must_be_immutable
 class RidesScreen extends StatelessWidget {
   RidesScreen({super.key});
 
