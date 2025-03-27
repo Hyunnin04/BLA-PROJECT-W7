@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:week_3_blabla_project/data/repository/local/local_ride_preference_repository.dart';
 import 'package:week_3_blabla_project/ui/providers/ride_prefs_provider.dart';
 import 'package:week_3_blabla_project/data/repository/ride_preferences_repository.dart';
 import 'data/repository/mock/mock_locations_repository.dart';
@@ -18,18 +19,22 @@ void main() {
   LocationsService.initialize(MockLocationsRepository());
   RidesService.initialize(MockRidesRepository());
 
-    RidePreferencesRepository ridePrefRepo = MockRidePreferencesRepository();
+  RidePreferencesRepository ridePrefRepo = MockRidePreferencesRepository();
+
+  RidePreferencesRepository localRepo = LocalRidePrefsRepository();
 
   // 2- Run the UI
-   runApp(
-    MultiProvider(
-     providers: [
-       ChangeNotifierProvider(
-         create: (context) => RidesPreferenceProvider(repository: ridePrefRepo),
-       ),
-     ],
-     child: MyApp(),
-   ));
+  runApp(MultiProvider(
+    providers: [
+      ChangeNotifierProvider(
+        create: (context) => RidesPreferenceProvider(repository: ridePrefRepo),
+      ),
+      ChangeNotifierProvider(
+        create: (context) => RidesPreferenceProvider(repository: localRepo),
+      ),
+    ],
+    child: MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
